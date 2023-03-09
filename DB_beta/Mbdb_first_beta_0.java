@@ -1,7 +1,6 @@
 package DB_beta;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,14 +9,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Mbdb_first_beta_0 {
-   public void write_Create_unstable(String path,Boolean selecter0,String... args) throws IOException {
-      // create table employee()0
-      FileWriter writer = new FileWriter(path, selecter0);
+   public void write_Create_unstable_db(String path, String pk, String... args) throws IOException {
+      FileWriter writer = new FileWriter(path);
       List<String> op = Arrays.asList(args);
 
       int len = args.length;
       int i = 0;
-
+      String val = "";
+      for (int j = 0; j < args.length; j++) {
+         if (args[j].equals(pk)) {
+            val = Integer.toString(j);
+         }
+      }
+      writer.append(val);
+      writer.append("\n");
       while (i < len - 1) {
          writer.append(args[i]);
          writer.append(",");
@@ -31,8 +36,8 @@ public class Mbdb_first_beta_0 {
       writer.close();
    }
 
-   public void write(String path, List<List<String>> op,Boolean selecter) throws IOException {
-      FileWriter writer = new FileWriter(path,selecter);
+   public void write(String path, List<List<String>> op, Boolean selecter) throws IOException {
+      FileWriter writer = new FileWriter(path, selecter);
       for (List<String> rowdata : op) {
          writer.append(String.join(",", rowdata));
          writer.append("\n");
@@ -51,9 +56,9 @@ public class Mbdb_first_beta_0 {
          List<String> a = Arrays.asList(data);
          op.add(a);
       }
-      write(path, op,false);
+      write(path, op, false);
       read.close();
-   }   
+   }
 }
 
 // List<List<String>> rows = Arrays.asList(
